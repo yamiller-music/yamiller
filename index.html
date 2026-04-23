@@ -7,6 +7,11 @@
     <link rel="icon" type="image/png" href="avatarrrr (1).png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Глобальне правило, щоб нічого не розпирало сайт */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background: #050505;
             color: #00F3FF;
@@ -17,21 +22,24 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 0;
+            padding: 20px 10px; /* Додав бокові відступи для body */
+            overflow-x: hidden; /* Заборона горизонтального скролу */
         }
+
         .container {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             border: 1px solid #00F3FF;
             box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
             background: rgba(0, 0, 0, 0.95);
-            width: 90%;
+            width: 100%;
             max-width: 450px;
             border-radius: 10px;
+            position: relative;
         }
+
         .tagline { color: #C0C0C0; font-size: 0.75em; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* ПЛЕЄР */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -39,26 +47,32 @@
             overflow: hidden;
             border: 1px solid #00F3FF;
             margin-bottom: 25px;
+            width: 100%;
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* КНОПКИ СОЦМЕРЕЖ */
-        .social-links { width: 100%; }
+        .social-links { 
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Рівномірний відступ між кнопками */
+        }
+
         .social-card {
             display: flex;
             align-items: center;
             padding: 12px;
-            margin: 10px 0;
-            color: #00F3FF; /* Текст залишається блакитним */
+            color: #00F3FF;
             text-decoration: none;
             border: 1px solid rgba(0, 243, 255, 0.3);
             background: rgba(0, 243, 255, 0.03);
             transition: 0.3s;
             text-align: left;
             border-radius: 8px;
+            width: 100%; /* Кнопка завжди на всю ширину */
         }
 
-        /* ОРИГІНАЛЬНІ КОЛЬОРИ ТІЛЬКИ ДЛЯ ІКОНОК */
+        /* Іконки з твоїми оригінальними кольорами */
         .fa-telegram-plane { color: #26A5E4; }
         .fa-soundcloud { color: #FF5500; }
         .fa-tiktok { color: #FFF; }
@@ -69,24 +83,39 @@
             background: rgba(0, 243, 255, 0.1);
             border-color: #00F3FF;
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-            transform: translateX(5px);
+            transform: scale(1.02);
         }
 
         .social-card i {
             font-size: 1.5em;
-            width: 40px;
+            width: 35px; /* Трохи звузив зону іконки для мобільних */
             text-align: center;
-            margin-right: 15px;
+            margin-right: 12px;
+            flex-shrink: 0; /* Щоб іконка не стискалася */
         }
-        .social-info { display: flex; flex-direction: column; }
+        
+        .social-info { 
+            display: flex; 
+            flex-direction: column;
+            overflow: hidden; /* Щоб довгі посилання не вилазили */
+        }
+        
         .social-name { font-weight: bold; font-size: 0.9em; text-transform: uppercase; }
-        .social-user { font-size: 0.7em; color: #C0C0C0; }
+        .social-user { 
+            font-size: 0.65em; 
+            color: #C0C0C0; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; /* Три крапки, якщо текст занадто довгий */
+        }
 
         .ad-container {
             margin-top: 30px;
             padding: 5px;
             border: 1px dashed #333;
             min-height: 60px;
+            width: 100%;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -133,7 +162,7 @@
                 </div>
             </a>
 
-            <a href="https://youtube.com/@yamiller.musicc" class="social-card" target="_blank">
+            <a href="https://youtube.com/@YaMiller" class="social-card" target="_blank">
                 <i class="fab fa-youtube"></i>
                 <div class="social-info">
                     <span class="social-name">YouTube</span>
