@@ -18,41 +18,28 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            min-height: 120vh; /* Додаткова висота для тестування скролу */
             margin: 0;
             padding: 40px 10px;
             overflow-x: hidden;
 
-            /* --- НОВІ РЯДКИ ДЛЯ ФОНУ --- */
-            
-            /* Спершу залишаємо чорний колір як основу, якщо картинка довго вантажиться */
+            /* ЕФЕКТ ПАРАЛАКСУ */
             background-color: #050505; 
-            
-            /* Вказуємо шлях до твого файлу */
-            background-image: url('content_monitors.png'); 
-            
-            /* Картинка має розтягнутися на весь екран */
+            background-image: url('content_monitorss.png'); 
             background-size: cover; 
-            
-            /* Картинка не повинна повторюватися ("плиткою") */
             background-repeat: no-repeat; 
-            
-            /* Картинка має бути по центру */
-            background-position: center; 
-            
-            /* Ефект "фіксованого" фону при прокрутці (дуже стильно) */
-            background-attachment: fixed; 
-            
-            /* --- КІНЕЦЬ НОВИХ РЯДКІВ --- */
+            background-position: center 0px; /* Початкова позиція */
+            background-attachment: scroll; /* Важливо для роботи скрипта */
         }
 
-        /* Ефект віньєтки, щоб центр завжди був читабельним */
+        /* Ефект віньєтки */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
             z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -60,13 +47,14 @@
             padding: 30px;
             border: 1px solid rgba(0, 243, 255, 0.4);
             box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
-            background: rgba(0, 0, 0, 0.9); /* Напівпрозорість для глибини */
-            backdrop-filter: blur(10px); /* Ефект матового скла */
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
             width: 100%;
             max-width: 480px;
             border-radius: 15px;
             position: relative;
             transition: transform 0.3s ease;
+            z-index: 1;
         }
 
         .tagline { 
@@ -126,7 +114,6 @@
             flex-shrink: 0;
         }
 
-        /* Кольори іконок */
         .fa-youtube { color: #FF0000; }
         .fa-telegram-plane { color: #26A5E4; }
         .fa-soundcloud { color: #FF5500; }
@@ -212,6 +199,14 @@
             <div id="container-03c06bcff4c72b2dd03d22c4d73a287d"></div>
         </div>
     </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            // Фон рухається у 5 разів повільніше за контент (коефіцієнт 0.2)
+            document.body.style.backgroundPositionY = (scrollY * 0.2) + 'px';
+        });
+    </script>
 
     <script async="async" data-cfasync="false" src="https://pl29224709.profitablecpmratenetwork.com/03c06bcff4c72b2dd03d22c4d73a287d/invoke.js"></script>
 
