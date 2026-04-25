@@ -3,42 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YaMiller</title>
+    <title>YaMiller | Technological Rebirth</title>
     <link rel="icon" type="image/png" href="avatarrrr (1).png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Глобальне правило, щоб нічого не розпирало сайт */
         * {
             box-sizing: border-box;
         }
 
         body {
-            background: #050505;
+            /* Додаємо динамічний кіберпанк-фон */
+            background: radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, #050505 50%),
+                        radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.05) 0%, #050505 50%),
+                        #050505;
+            /* Сюди можна додати посилання на фоновий арт з Кібер-Мавкою */
+            background-image: url('ВАШЕ_ФОТО_ФОНУ.jpg'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            
             color: #00F3FF;
             font-family: 'Courier New', monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 10px; /* Додав бокові відступи для body */
-            overflow-x: hidden; /* Заборона горизонтального скролу */
+            padding: 40px 10px;
+            overflow-x: hidden;
+        }
+
+        /* Ефект віньєтки, щоб центр завжди був читабельним */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
         }
 
         .container {
             text-align: center;
-            padding: 25px;
-            border: 1px solid #00F3FF;
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
-            background: rgba(0, 0, 0, 0.95);
+            padding: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
+            background: rgba(0, 0, 0, 0.9); /* Напівпрозорість для глибини */
+            backdrop-filter: blur(10px); /* Ефект матового скла */
             width: 100%;
-            max-width: 450px;
-            border-radius: 10px;
+            max-width: 480px;
+            border-radius: 15px;
             position: relative;
+            transition: transform 0.3s ease;
         }
 
-        .tagline { color: #C0C0C0; font-size: 0.75em; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .tagline { 
+            color: #C0C0C0; 
+            font-size: 0.75em; 
+            margin-bottom: 25px; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
         
         .video-container {
             position: relative;
@@ -46,8 +71,9 @@
             height: 0;
             overflow: hidden;
             border: 1px solid #00F3FF;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             width: 100%;
+            border-radius: 8px;
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
@@ -55,94 +81,87 @@
             width: 100%; 
             display: flex;
             flex-direction: column;
-            gap: 10px; /* Рівномірний відступ між кнопками */
+            gap: 12px;
+            margin-top: 20px;
         }
 
         .social-card {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 14px;
             color: #00F3FF;
             text-decoration: none;
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            background: rgba(0, 243, 255, 0.03);
-            transition: 0.3s;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: left;
-            border-radius: 8px;
-            width: 100%; /* Кнопка завжди на всю ширину */
+            border-radius: 10px;
         }
 
-        /* Іконки з твоїми оригінальними кольорами */
+        .social-card:hover {
+            background: rgba(0, 243, 255, 0.08);
+            border-color: #00F3FF;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .social-card i {
+            font-size: 1.6em;
+            width: 40px;
+            text-align: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Кольори іконок */
+        .fa-youtube { color: #FF0000; }
         .fa-telegram-plane { color: #26A5E4; }
         .fa-soundcloud { color: #FF5500; }
         .fa-tiktok { color: #FFF; }
         .fa-instagram { color: #E1306C; }
-        .fa-youtube { color: #FF0000; }
 
-        .social-card:hover {
-            background: rgba(0, 243, 255, 0.1);
-            border-color: #00F3FF;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-            transform: scale(1.02);
-        }
+        .social-info { display: flex; flex-direction: column; }
+        .social-name { font-weight: bold; font-size: 0.95em; text-transform: uppercase; letter-spacing: 1px; }
+        .social-user { font-size: 0.7em; color: #888; }
 
-        .social-card i {
-            font-size: 1.5em;
-            width: 35px; /* Трохи звузив зону іконки для мобільних */
-            text-align: center;
-            margin-right: 12px;
-            flex-shrink: 0; /* Щоб іконка не стискалася */
-        }
-        
-        .social-info { 
-            display: flex; 
-            flex-direction: column;
-            overflow: hidden; /* Щоб довгі посилання не вилазили */
-        }
-        
-        .social-name { font-weight: bold; font-size: 0.9em; text-transform: uppercase; }
-        .social-user { 
-            font-size: 0.65em; 
-            color: #C0C0C0; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; /* Три крапки, якщо текст занадто довгий */
+        .spotify-widget {
+            margin: 20px 0;
+            filter: drop-shadow(0 0 15px rgba(29, 185, 84, 0.2));
         }
 
         .ad-container {
             margin-top: 30px;
             padding: 5px;
             border: 1px dashed #333;
-            min-height: 60px;
             width: 100%;
-            overflow: hidden;
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="avatarr.png" alt="YaMiller" style="width: 150px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 0 10px #00F3FF);">
+        <img src="avatarr.png" alt="YaMiller" style="width: 140px; height: auto; margin-bottom: 10px; filter: drop-shadow(0 0 15px #00F3FF);">
+        
         <div class="tagline">Technological Rebirth of Ukraine</div>
         
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/2dr8zaPHYe8" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/0iXMwOsRZd7pNMaLHel1FR?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="spotify-widget">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0iXMwOsRZd7pNMaLHel1FR?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
 
         <div class="social-links">
-        
             <a href="https://youtube.com/@yamiller.musicc" class="social-card" target="_blank">
                 <i class="fab fa-youtube"></i>
                 <div class="social-info">
                     <span class="social-name">YouTube</span>
-                    <span class="social-user">youtube.com/@YaMiller</span>
+                    <span class="social-user">@YaMiller</span>
                 </div>
             </a>
-        
 
-        
             <a href="https://t.me/yamillermusic" class="social-card" target="_blank">
                 <i class="fab fa-telegram-plane"></i>
                 <div class="social-info">
@@ -175,6 +194,7 @@
                 </div>
             </a>
         </div>
+
         <div class="ad-container">
             <div id="container-03c06bcff4c72b2dd03d22c4d73a287d"></div>
         </div>
