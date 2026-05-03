@@ -135,6 +135,26 @@
             filter: drop-shadow(0 0 15px rgba(29, 185, 84, 0.2));
         }
 
+        /* Стиль для пошти */
+        .contact-email {
+            margin-top: 25px;
+            padding: 15px;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            font-size: 0.8em;
+        }
+        .contact-email a {
+            color: #00F3FF;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .contact-email a:hover {
+            opacity: 1;
+        }
+        .contact-email i {
+            margin-right: 8px;
+        }
+
         .ad-container {
             margin-top: 30px;
             padding: 5px;
@@ -214,6 +234,13 @@
                     <span class="social-name">Instagram</span>
                     <span class="social-user">@yamiller.music</span>
                 </div>
+            </a>
+        </div>
+
+        <!-- Контактна пошта -->
+        <div class="contact-email">
+            <a href="mailto:yamiller.music@gmail.com">
+                <i class="fas fa-envelope"></i> yamiller.music@gmail.com
             </a>
         </div>
 
