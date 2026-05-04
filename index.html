@@ -14,7 +14,7 @@
     <title>YaMiller | Technological Rebirth</title>
     <link rel="icon" type="image/png" href="avatarrrr (1).png">
     
-    <!-- ОНОВЛЕНО: Свіжа версія Font Awesome для підтримки іконки X -->
+    <!-- ОНОВЛЕНО: Підтримка іконок, включаючи X (Twitter) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -36,7 +36,8 @@
             background-size: cover; 
             background-repeat: no-repeat; 
             background-attachment: fixed; 
-            background-position: center center;
+            /* ВАЖЛИВО: Повертаємо 0px для коректної роботи скрипта */
+            background-position: center 0px; 
             transition: background-position 0.1s ease-out;
         }
 
@@ -124,7 +125,7 @@
         .fa-youtube { color: #FF0000; }
         .fa-spotify { color: #1DB954; }
         .fa-apple { color: #FFFFFF; }
-        .fa-x-twitter { color: #FFFFFF; } /* Оновлений клас */
+        .fa-x-twitter { color: #FFFFFF; }
         .fa-telegram { color: #26A5E4; }
         .fa-soundcloud { color: #FF5500; }
         .fa-tiktok { color: #FFF; }
@@ -208,7 +209,6 @@
                 </div>
             </a>
 
-            <!-- Іконка X (Twitter) -->
             <a href="https://x.com/YaMiller_Music" class="social-card" target="_blank">
                 <i class="fa-brands fa-x-twitter"></i>
                 <div class="social-info">
@@ -266,7 +266,8 @@
             if (!ticking) {
                 window.requestAnimationFrame(function() {
                     const scrollY = window.scrollY;
-                    document.body.style.backgroundPositionY = 'center ' + (scrollY * 0.03) + 'px';
+                    // ПОВЕРНУТО: Розрахунок позиції для ефекту прокрутки (паралакс)
+                    document.body.style.backgroundPositionY = (scrollY * 0.03) + 'px';
                     ticking = false;
                 });
                 ticking = true;
