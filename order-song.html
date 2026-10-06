@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Замовити пісню | YaMiller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1230;--panel:#161d45;--line:#2b3573;--text:#eef1ff;--muted:#a3abd6;--blue:#5ab0ff;--gold:#f5c935;--err:#ff7b8a}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#1d2a7a 0%,transparent 60%),var(--bg);color:var(--text);font:400 17px/1.55 Onest,system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px 80px}
+.back{color:var(--muted);text-decoration:none;font-size:15px}
+.back:hover{color:var(--gold)}
+h1{font:700 clamp(28px,6vw,42px)/1.15 Unbounded,sans-serif;margin:28px 0 12px}
+.lead{color:var(--muted);margin:0 0 36px;max-width:56ch}
+fieldset{border:0;border-left:3px solid var(--blue);margin:0 0 36px;padding:0 0 0 22px}
+legend{font:500 20px/1.3 Unbounded,sans-serif;padding:0;margin-bottom:6px;float:left;width:100%}
+legend+*{clear:both}
+.note{color:var(--muted);font-size:15px;margin:0 0 18px;clear:both}
+.field{margin:0 0 22px}
+label.q,.q{display:block;font-weight:600;margin-bottom:4px}
+.hint{display:block;color:var(--muted);font-size:14px;margin-bottom:8px}
+input[type=text],input[type=email],textarea{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit;padding:12px 14px}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:transparent}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opts label{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer}
+.opts label:has(input:checked){border-color:var(--gold);background:#2a2a3d}
+.opts label:has(input:focus-visible){outline:2px solid var(--gold)}
+.opts input{accent-color:var(--gold);margin:0}
+.opts.col label{border-radius:10px;width:100%}
+.other{margin-top:10px}
+button.send{background:var(--gold);color:#1a1630;border:0;border-radius:10px;font:700 17px Unbounded,sans-serif;padding:16px 28px;cursor:pointer}
+button.send:hover{background:#ffd84d}
+button.send:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+button.send[disabled]{opacity:.6;cursor:wait}
+.status{margin-top:18px;font-weight:500}
+.status.err{color:var(--err)}
+.done{display:none;background:var(--panel);border:1px solid var(--gold);border-radius:12px;padding:28px}
+.done h2{font:700 24px Unbounded,sans-serif;margin:0 0 10px}
+.hp{position:absolute;left:-9999px}
+@media (prefers-reduced-motion:no-preference){button.send{transition:background .2s}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="/">← На головну</a>
+<h1>Пісня, яка звучить про вас</h1>
+<p class="lead">Чим конкретніші відповіді, тим сильніша вийде пісня. Заповніть анкету, і ми напишемо трек саме про вашу історію, а не про загальну тему.</p>
+
+<div class="done" id="done" role="status" tabindex="-1">
+  <h2>Анкету надіслано</h2>
+  <p>Дякуємо! Ми переглянемо відповіді й зв’яжемося з вами за вказаним контактом.</p>
+</div>
+
+<form id="form" action="https://formspree.io/f/xkjooggv" method="POST">
+<input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+<input type="hidden" name="_subject" value="Нове замовлення пісні | YaMiller">
+
+<fieldset>
+<legend>Як з вами зв’язатися</legend>
+<div class="field"><label class="q" for="name">Ваше ім’я</label><input type="text" id="name" name="Ім'я" required autocomplete="name"></div>
+<div class="field"><label class="q" for="contact">Ваша електронна пошта</label><span class="hint">Сюди ми напишемо відповідь</span><input type="email" id="contact" name="email" required autocomplete="email" placeholder="you@mail.com"></div>
+</fieldset>
+
+<fieldset>
+<legend>1. Кому і з якої нагоди</legend>
+<div class="field"><label class="q" for="who">Кому призначена пісня?</label><span class="hint">Собі, чоловіку/дружині, батькам, другу</span><input type="text" id="who" name="1. Кому призначена пісня" required></div>
+<div class="field"><label class="q" for="occasion">Це подарунок до конкретної дати, чи просто «хочеться пісню про нас»?</label><span class="hint">Наприклад: день народження, річниця, весілля, без приводу</span><input type="text" id="occasion" name="1. Нагода" required></div>
+<div class="field"><label class="q" for="surprise">Пісня буде сюрпризом, чи людина знає, що про неї пишуть?</label><input type="text" id="surprise" name="1. Сюрприз чи ні"></div>
+</fieldset>
+
+<fieldset>
+<legend>2. Одна конкретна ситуація</legend>
+<p class="note">Найважливіший блок. Не період, а один момент.</p>
+<div class="field"><label class="q" for="moment">Згадайте один конкретний момент із цією людиною, який найчастіше спадає на думку</label><textarea id="moment" name="2. Конкретний момент" required></textarea></div>
+<div class="field"><label class="q" for="where">Де це відбувається? Яка пора року, час доби?</label><textarea id="where" name="2. Місце і час"></textarea></div>
+<div class="field"><label class="q" for="action">Що саме людина робить у цій сцені?</label><span class="hint">Не «любить», а конкретна дія: готує, їде кудись, чекає, сміється над чимось</span><textarea id="action" name="2. Дія людини"></textarea></div>
+</fieldset>
+
+<fieldset>
+<legend>3. Предмет або деталь-символ</legend>
+<div class="field"><label class="q" for="symbol">Чи є річ, яка асоціюється з цією людиною чи стосунками?</label><span class="hint">Машина, подарунок, місце, страва, звичка</span><textarea id="symbol" name="3. Предмет-символ"></textarea></div>
+<div class="field"><label class="q" for="phrase">Чи є фраза, яку людина часто каже? Щось типове саме для неї</label><textarea id="phrase" name="3. Фраза"></textarea></div>
+</fieldset>
+
+<fieldset>
+<legend>4. Емоційний стрижень</legend>
+<div class="field"><label class="q" for="word">Одним словом: що ви відчуваєте до цієї людини чи ситуації?</label><input type="text" id="word" name="4. Слово-емоція"></div>
+<div class="field">
+<span class="q" id="moodlbl">Пісня має бути…</span>
+<div class="opts" role="group" aria-labelledby="moodlbl">
+<label><input type="radio" name="4. Настрій" value="Ніжна"> Ніжна</label>
+<label><input type="radio" name="4. Настрій" value="Весела"> Весела</label>
+<label><input type="radio" name="4. Настрій" value="Ностальгійна"> Ностальгійна</label>
+<label><input type="radio" name="4. Настрій" value="Урочиста"> Урочиста</label>
+<label><input type="radio" name="4. Настрій" value="З гумором"> З гумором</label>
+<label><input type="radio" name="4. Настрій" value="Інше" id="moodOther"> Інше</label>
+</div>
+<input class="other" type="text" id="moodText" name="4. Настрій (інше)" placeholder="Який саме?" hidden>
+</div>
+<div class="field"><label class="q" for="contrast">Чи є в цих стосунках легкий контраст, який можна показати через пісню?</label><span class="hint">Наприклад: вона хвилюється, він спокійний</span><textarea id="contrast" name="4. Контраст"></textarea></div>
+</fieldset>
+
+<fieldset>
+<legend>5. Технічні деталі</legend>
+<div class="field">
+<span class="q" id="voicelbl">Вокал</span>
+<div class="opts" role="group" aria-labelledby="voicelbl">
+<label><input type="radio" name="5. Вокал" value="Чоловічий"> Чоловічий</label>
+<label><input type="radio" name="5. Вокал" value="Жіночий"> Жіночий</label>
+<label><input type="radio" name="5. Вокал" value="Дует"> Дует</label>
+</div></div>
+<div class="field">
+<span class="q" id="tempolbl">Темп і атмосфера</span>
+<div class="opts col" role="group" aria-labelledby="tempolbl">
+<label><input type="radio" name="5. Темп" value="Повільна, тиха"> Повільна, тиха, для спокійного моменту</label>
+<label><input type="radio" name="5. Темп" value="Середній, тепла"> Середній темп, тепла і душевна</label>
+<label><input type="radio" name="5. Темп" value="Швидка, енергійна"> Швидка, енергійна, для застілля чи танців</label>
+</div></div>
+<div class="field"><label class="q" for="ref">Улюблений жанр або виконавець для орієнтиру</label><input type="text" id="ref" name="5. Жанр / виконавець"></div>
+</fieldset>
+
+<button class="send" type="submit" id="btn">Надіслати анкету</button>
+<div class="status" id="status" role="status" aria-live="polite"></div>
+</form>
+</main>
+
+<script>
+(function(){
+  // Куди приходять відповіді: Formspree-ендпоінт у action форми.
+  // Якщо там ще YOUR_FORM_ID, відкриється лист у поштовій програмі на цю адресу.
+  var FALLBACK_EMAIL='yamiller.music@gmail.com';
+  var form=document.getElementById('form'),btn=document.getElementById('btn'),
+      st=document.getElementById('status'),done=document.getElementById('done');
+
+  var radios=form.querySelectorAll('input[name="4. Настрій"]'),mt=document.getElementById('moodText');
+  radios.forEach(function(r){r.addEventListener('change',function(){
+    var other=document.getElementById('moodOther').checked;mt.hidden=!other;if(other)mt.focus();
+  })});
+
+  function plain(fd){
+    var out=[];fd.forEach(function(v,k){if(v&&k.charAt(0)!=='_')out.push(k+': '+v)});
+    return out.join('\n\n');
+  }
+  function ok(){form.style.display='none';done.style.display='block';done.focus();window.scrollTo({top:0})}
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var fd=new FormData(form);
+    if(fd.get('_gotcha'))return;
+    if(form.action.indexOf('YOUR_FORM_ID')>-1){
+      location.href='mailto:'+FALLBACK_EMAIL+'?subject='+encodeURIComponent('Замовлення пісні | YaMiller')+'&body='+encodeURIComponent(plain(fd));
+      st.textContent='Відкрився лист із вашими відповідями. Натисніть «Надіслати» у поштовій програмі.';
+      return;
+    }
+    btn.disabled=true;btn.textContent='Надсилаємо…';st.textContent='';st.className='status';
+    fetch(form.action,{method:'POST',body:fd,headers:{Accept:'application/json'}})
+      .then(function(r){if(r.ok)ok();else throw new Error()})
+      .catch(function(){st.className='status err';st.textContent='Не вдалося надіслати. Спробуйте ще раз або напишіть на '+FALLBACK_EMAIL;btn.disabled=false;btn.textContent='Надіслати анкету'});
+  });
+})();
+</script>
+</body>
+</html>
