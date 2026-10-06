@@ -123,6 +123,35 @@
             flex-shrink: 0;
         }
 
+        /* Кнопка "Замовити пісню" */
+        .order-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            margin: 20px 0 8px;
+            padding: 16px 14px;
+            color: #00F3FF;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid #00F3FF;
+            border-radius: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .order-btn:hover {
+            background: #00F3FF;
+            color: #050505;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.7);
+            transform: translateY(-2px);
+        }
+        .order-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
         /* Кольори іконок */
         .fa-youtube { color: #FF0000; }
         .fa-spotify { color: #1DB954; }
@@ -185,6 +214,12 @@
         <div class="spotify-widget">
             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/0iXMwOsRZd7pNMaLHel1FR?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
+
+        <!-- Кнопка замовлення пісні -->
+        <a href="order-song.html" class="order-btn">
+            <i class="fa-solid fa-music"></i>
+            Замовити пісню
+        </a>
 
         <div class="social-links">
             <a href="https://youtube.com/@yamiller.musicc" class="social-card" target="_blank">
@@ -276,6 +311,5 @@
         });
     </script>
     <script async="async" data-cfasync="false" src="https://pl29224709.profitablecpmratenetwork.com/03c06bcff4c72b2dd03d22c4d73a287d/invoke.js"></script>
-
 </body>
-    </html>
+</html>
